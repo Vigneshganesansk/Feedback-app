@@ -1,0 +1,191 @@
+<div class="gridContainer" *ngIf=isPMO>
+    <div fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="30px" [style.margin-top]="'12px'" [style.margin-left]="'10px'">
+        <mat-accordion>
+            <mat-expansion-panel [expanded]="AssignExpanded" [hideToggle]="true" [disabled]="true">
+                <mat-expansion-panel-header style="background: rgb(1, 58, 168)">
+                    <mat-panel-title>
+                        <div style="width: 100%;">
+                            <div style="float: left;">
+                                ASSIGN PMO
+                            </div>
+                            <div style="float: right; vertical-align: middle;">
+                                <i class="fas fa-expand icon-expand" type="button" (click)="ToggleCard('assign', 1)"></i>
+                                <i class="fas fa-redo icon-redo"></i>
+                                <i class="fas fa-minus icon-minus" type="button" (click)="ToggleCard('assign', 2)"></i>
+                                <i class="fa fa-times icon-close" aria-hidden="true"></i>
+                            </div>
+                        </div>
+                    </mat-panel-title>
+                </mat-expansion-panel-header>
+                <div class="matExpansionContent">
+                    <form [formGroup]="PmoForm" (ngSubmit)="SubmitPMO()">
+                        <div class="row" fxLayoutAlign="start center">
+                            <div class="col-xs-3">
+                                <p>Employee ID: </p>
+                            </div>
+                            <div class="col-xs-5">
+                                <input type="email" formControlName="PmoTextArea" class="form-control" placeholder="Enter Email ID" id="mailId" email="true">
+                            </div>
+                            <div class="col-xs-2">
+                                <button type="submit" class="btn btn-success">Add PMO</button>
+                            </div>
+                            <div class="col-xs-2">
+                                <button type="button" class="btn btn-danger" (click)=RemovePMO()>Remove PMO</button>
+                            </div>
+                        </div>
+                    </form>
+                    <div fxLayoutAlign="start center" fxLayoutGap="20px" *ngIf="submittedPMO && PmoForm.controls['PmoTextArea'].errors" class="row">
+                        <div class="col-xs-12 invalid-feedback p-4" *ngIf="PmoForm.controls['PmoTextArea'].errors.required"><span>Employee ID is required</span></div>
+                        <div class="col-xs-12 invalid-feedback p-4" *ngIf="PmoForm.controls['PmoTextArea'].errors.email">Email must be a valid email address</div>
+                    </div>
+                </div>
+            </mat-expansion-panel>
+        </mat-accordion>
+
+    </div>
+
+    <!-- mat accordion (Expansion panel)-->
+    <div fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="40px" [style.margin-top]="'12px'" [style.margin-left]="'10px'">
+        <mat-accordion>
+            <mat-expansion-panel [expanded]="PMOExpanded" [hideToggle]="true" [disabled]="true">
+                <mat-expansion-panel-header>
+                    <mat-panel-title>
+                        <div style="width: 100%;">
+                            <div style="float: left;">
+                                PMO USERS
+                            </div>
+                            <div style="float: right; vertical-align: middle;">
+                                <i class="fas fa-expand icon-expand" type="button" (click)="ToggleCard('pmo', 1)"></i>
+                                <i class="fas fa-redo icon-redo"></i>
+                                <i class="fas fa-minus icon-minus" type="button" (click)="ToggleCard('pmo', 2)"></i>
+                                <i class="fa fa-times icon-close" aria-hidden="true"></i>
+                            </div>
+                        </div>
+                    </mat-panel-title>
+                </mat-expansion-panel-header>
+                <div class="matExpansionContent">
+                    <dx-data-grid #grid id="gridContainer" [dataSource]="pmoGuys" keyExpr="email" [hoverStateEnabled]="true" [showBorders]="true" [wordWrapEnabled]="true" [(selectedRowKeys)]="selectedRows" (onSelectionChanged)="selectionChangedHandler()" [scrolling]="{ mode: 'virtual'}">
+                        <dxo-selection mode="single"></dxo-selection>
+                        <dxi-column dataField="email" alignment="center"></dxi-column>
+                        <dxi-column dataField="associateName" alignment="center"></dxi-column>
+                        <dxi-column dataField="associateId" alignment="center"></dxi-column>
+                    </dx-data-grid>
+                </div>
+            </mat-expansion-panel>
+        </mat-accordion>
+    </div>
+</div>
+<div class="gridContainer" *ngIf=!isPMO>
+    <!-- Feedback Questions -->
+    <div fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="30px" [style.margin-top]="'12px'" [style.margin-left]="'10px'" *ngIf=!isPMO>
+        <mat-accordion>
+            <mat-expansion-panel [expanded]="FeedbackExpanded" [hideToggle]="true" [disabled]="true">
+                <mat-expansion-panel-header>
+                    <mat-panel-title>
+                        <div style="width: 100%;">
+                            <div *ngIf="!(isAddQuestion || isEditQuestion)" style="float: left;">
+                                FEEDBACK QUESTIONS
+                            </div>
+                            <div *ngIf="(isAddQuestion || isEditQuestion)" style="float: left;">
+                                <div *ngIf="(isAddQuestion)">ADD QUESTION</div>
+                                <div *ngIf="(isEditQuestion)">EDIT QUESTION</div>
+                            </div>
+                            <div style="float: right; vertical-align: middle;" *ngIf="!(isAddQuestion || isEditQuestion)">
+                                <i class="fas fa-expand icon-expand" type="button" (click)="ToggleCard('feedback', 1)"></i>
+                                <i class="fas fa-redo icon-redo"></i>
+                                <i class="fas fa-minus icon-minus" type="button" (click)="ToggleCard('feedback', 2)"></i>
+                                <i class="fa fa-times icon-close" aria-hidden="true"></i>
+                            </div>
+                        </div>
+                    </mat-panel-title>
+                </mat-expansion-panel-header>
+                <div class="matExpansionContent">
+                    <!-- Display list of questions -->
+                    <div class="row" fxLayoutAlign="start">
+                        <div class="col-xs-3" *ngIf="!(isAddQuestion || isEditQuestion)">
+                            <button type="button" class="btn btn-success" (click)=NewQuestion()>Add Question</button>
+                            <br>
+                        </div>
+                        <div class="col-xs-3 returnWidth" *ngIf="isAddQuestion || isEditQuestion">
+                            <button type="button" class="btn btn-danger" (click)=ReturnToTable()>Return</button>
+                        </div>
+                    </div>
+                    <br>
+                    <dx-data-grid id="gridContainer" [dataSource]="questionsData" [showBorders]="true" *ngIf="tableDisplay">
+
+                        <dxi-column dataField="questions" caption="Question" alignment="center"></dxi-column>
+                        <dxi-column dataField="totalAnswers" caption="Total Answers" alignment="center"></dxi-column>
+                        <dxi-column dataField="answers.radioAns" caption="Feedback Type" alignment="center"></dxi-column>
+                        <dxi-column dataField="q_ID" caption="Action" alignment="center" [allowFiltering]="false" [allowSorting]="false" cellTemplate="cellTemplate"></dxi-column>
+
+
+                        <div *dxTemplate="let data of 'cellTemplate'">
+                            <button type="button" class="btn btn-primary" (click)=EditQuestion(data.value)>
+                                Edit
+                            </button>
+                        </div>
+                    </dx-data-grid>
+                    <!-- Edit or Add Question Form Template -->
+                    <form [formGroup]="questionForm" (ngSubmit)="Submit()" *ngIf="isAddQuestion || isEditQuestion">
+                        <div class="row" fxLayoutAlign="center center" fxLayoutGap="60px" [style.margin-top]="'12px'" [style.margin-left]="'10px'">
+                            <div class="col-xs-4">
+                                <label id="fbTy-radio-group-label">Feedback Type</label>
+                            </div>
+                            <div class="col-xs-8">
+                                <mat-radio-group formControlName="radioAns" class="example-radio-group" aria-labelledby="fbTy-radio-group-label">
+                                    <mat-radio-button class="example-radio-button" *ngFor="let type of fbTypes" [value]="type">
+                                        {{type}}
+                                    </mat-radio-button>
+                                </mat-radio-group>
+                            </div>
+                        </div>
+                        <div class="row" fxLayoutAlign="center center" fxLayoutGap="60px" [style.margin-top]="'12px'" [style.margin-left]="'10px'">
+                            <div class="col-xs-12 example-checkbox">
+                                <mat-checkbox class="example-margin" formControlName="multipleAnswer" [checked]="!questionForm.controls.freeTextAnswer.value">Allow Multiple Answer
+                                </mat-checkbox>
+                                <mat-checkbox class="example-margin" formControlName="freeTextAnswer" [checked]="!questionForm.controls.multipleAnswer.value">Free Text Answer
+                                </mat-checkbox>
+                                <mat-checkbox class="example-margin" formControlName="customQuestion" [disabled]="isEditQuestion">Custom Question
+                                </mat-checkbox>
+                            </div>
+                        </div>
+                        <!-- Question Text Area !array -->
+                        <div class="row" fxLayoutAlign="start" fxLayoutGap="20px" [style.margin-top]="'12px'" [style.margin-left]="'10px'">
+                            <div class="col-xs-4 ">
+                                <label for="exampleFormControlTextarea1 ">Question</label>
+                            </div>
+                            <div class="col-xs-4">
+                                <input class="form-control" formControlName="questionTextArea" id="exampleFormControlTextarea1" rows="1" placeholder="Description (required) ">
+                            </div>
+                        </div>
+
+                        <!-- Answer text area == array -->
+                        <div class="row" formArrayName="answerArray" fxLayoutAlign="start" fxLayoutGap="60px" [style.margin-top]="'12px'" [style.margin-left]="'10px'" *ngFor="let answer of questionForm.get('answerArray')['controls']; let i = index;">
+                            <div class="col-xs-4">
+                                <label for="exampleFormControlTextarea1 ">Answer {{i+1}}</label>
+                            </div>
+                            <div class="col-xs-4 " [formGroupName]="i" *ngIf="questionForm.get('answerArray')['controls'].length > 0">
+                                <textarea class="form-control" formControlName="answerTextArea" id="exampleFormControlTextarea1" rows="2" placeholder="Answer (required) "></textarea>
+                            </div>
+                            <div class="col-xs-4">
+                                <button type="button" class="btn btn-warning" (click)=RemoveAnswer(i)>Delete <br>
+                                    Answer</button>
+                            </div>
+                        </div>
+                        <div class="row " fxLayoutAlign="start " fxLayoutGap="60px " [style.margin-top]=" '12px' " [style.margin-left]=" '10px' ">
+                            <button type="button" class="btn btn-success" (click)=AddAnswer() [disabled]="!questionForm.controls.multipleAnswer.value">Add Answer</button>
+                        </div>
+                        <div class="row " fxLayoutAlign="center center " fxLayoutGap="20px " [style.margin-top]=" '12px' " [style.margin-left]=" '10px' ">
+                            <button type="submit" class="btn btn-primary">Save</button>
+                            <button type="button" class="btn btn-secondary" (click)=CancelForm()>Cancel</button>
+                            <button type="button" class="btn btn-danger" (click)=DeleteForm()>Delete</button>
+                        </div>
+
+                    </form>
+                </div>
+
+            </mat-expansion-panel>
+        </mat-accordion>
+
+    </div>
+</div>

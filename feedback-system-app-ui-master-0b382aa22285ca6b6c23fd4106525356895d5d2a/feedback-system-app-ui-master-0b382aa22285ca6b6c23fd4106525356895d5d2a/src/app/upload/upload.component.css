@@ -1,0 +1,15 @@
+mat-accordion {
+    margin: 0px 20px 0px 20px;
+    width: 100%;
+}
+
+.events-top-div,
+.matExpansionContent {
+    margin-top: 10px;
+}
+
+.btn {
+    float: left;
+    margin-top: 5px;
+    width: 100%;
+}

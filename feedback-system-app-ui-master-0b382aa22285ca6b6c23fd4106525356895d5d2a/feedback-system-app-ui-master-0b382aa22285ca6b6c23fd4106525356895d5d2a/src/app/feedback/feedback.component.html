@@ -1,0 +1,210 @@
+<!-- Feedback vs Evnet selection -->
+<!-- <div *ngIf="!SubmitSuccess">
+        <div fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="40px" class="events-top-div" *ngFor="let item of freeTextQuestions">
+            <mat-accordion>
+                <mat-expansion-panel [expanded]="true" [hideToggle]="true" [disabled]="true">
+                    <mat-expansion-panel-header>
+                        <mat-panel-title>
+                            Please select a event to give feedback.
+                        </mat-panel-title>
+                    </mat-expansion-panel-header>
+                    <div class="matExpansionContent">
+                        <dx-data-grid id="gridContainer"
+                            [dataSource]="reportsData"
+                            keyExpr="EventID"
+                            [showBorders]="true"
+                            [wordWrapEnabled]="true"
+                            [scrolling]="{ mode: 'virtual'}"
+                            [masterDetail]="{ enabled: false, template: 'detail', autoExpandAll: true }"
+                            style="width: 100%; margin-top: 1%; margin-bottom: 1%;">
+                            
+                              <dxo-filter-row [visible]="true" [applyFilter]="currentFilter"></dxo-filter-row>
+                              <dxi-column
+                                type="selection"
+                                cellTemplate="selectionCellTemplate"
+                                headerCellTemplate="selectionHeaderCellTemplate"
+                                [width]="100"
+                                >
+                              </dxi-column>
+                              <dxi-column dataField="EventID" [width]="150"></dxi-column>
+                              <dxi-column dataField="Month" [width]="150"></dxi-column>
+                              <dxi-column dataField="BaseLocation" [width]="150"></dxi-column>
+                              <dxi-column dataField="CouncilName" [width]="180"></dxi-column>
+                              <dxi-column dataField="BeneficiaryName" [width]="180"></dxi-column>
+                            
+                              <div *dxTemplate="let event of 'detail'">
+                                <table class="table table-bordered table-hover " style="width: 50%; background: white;">
+                                    <tbody>
+                                        <tr>
+                                        <td class="width-25">Event Name</td>
+                                        <td>{{ event.data.EventName }}</td>
+                                        </tr>
+                                        <tr>
+                                        <td class="width-25">Event Date</td>
+                                        <td>{{ event.data.EventDate }}</td>
+                                        </tr>
+                                        <tr>
+                                        <td class="width-25">Business Unit</td>
+                                        <td>{{ event.data.BusinessUnit }}</td>
+                                        </tr>
+                                        <tr>
+                                        <td class="width-25">Status</td>
+                                        <td>{{ event.data.Status }}</td>
+                                        </tr>
+                                        <tr>
+                                        <td class="width-25">Venue Address</td>
+                                        <td>{{ event.data.VenueAddress }}</td>
+                                        </tr>
+                                        <tr>
+                                        <td class="width-25">Total Volunteers</td>
+                                        <td>{{ event.data.TotalVolunteers }}</td>
+                                        </tr>
+                                        <tr>
+                                        <td class="width-25">Total VolunteerHours</td>
+                                        <td>{{ event.data.TotalVolunteerHours }}</td>
+                                        </tr>
+                                        <tr>
+                                        <td class="width-25">Total TravelHours</td>
+                                        <td>{{ event.data.TotalTravelHours }}</td>
+                                        </tr>
+                                    </tbody>
+                                    </table>
+                                </div>
+                    
+                                <div *dxTemplate="let cellInfo of 'selectionCellTemplate'">
+                                    <button type="button" class="btn btn-primary" (click)="SwitchDiv(cellInfo.data)" style="height: 90%;"><i class="fa fa-eye"></i> view</button>
+                                </div>
+                    
+                                <div *dxTemplate="let headerInfo of 'selectionHeaderCellTemplate'">
+                                    <p>Action</p>
+                                </div>
+                          </dx-data-grid>
+                    </div>
+                </mat-expansion-panel>
+            </mat-accordion>
+        </div>
+    </div> -->
+
+<!-- Feedback Header with event details -->
+<div fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="40px" class="events-top-div" *ngIf="hasEventParticipantLoaded && !SubmitSuccess">
+    <mat-accordion>
+        <mat-expansion-panel [expanded]="true">
+            <div class="matExpansionContent">
+                <div class="row" style="text-align: center;">
+                    <div style="width: 100%;">
+                        <h4 style="color: limegreen;">Feedback request for {{ selectedEvent.eventName }} on {{ selectedEvent.eventDate }}</h4>
+                    </div>
+                </div>
+            </div>
+        </mat-expansion-panel>
+    </mat-accordion>
+</div>
+
+<!-- Rating Answer Questions -->
+<div fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="40px" class="events-top-div" *ngIf="hasRatingQuestions && !SubmitSuccess && hasEventParticipantLoaded && particiapnt.participationStatusId == 1">
+    <mat-accordion>
+        <mat-expansion-panel [expanded]="true" [hideToggle]="true" [disabled]="true">
+            <mat-expansion-panel-header>
+                <mat-panel-title>
+                    How do you rate overall event ?
+                </mat-panel-title>
+            </mat-expansion-panel-header>
+            <div class="matExpansionContent">
+                <div class="row" style="text-align: center;">
+                    <div style="width: 20%;">
+                        <i class="far fa-angry" style="font-size: 1000%; color: red; cursor: pointer; padding: 3px;" type="button" (click)="giveRating(1)" [ngClass]="{'selectedRating': EventRating === 1 }"></i>
+                    </div>
+                    <div style="width: 20%;">
+                        <i class="far fa-frown" style="font-size: 1000%; color: darkorange; cursor: pointer; padding: 3px;" type="button" (click)="giveRating(2)" [ngClass]="{'selectedRating': EventRating === 2 }"></i>
+                    </div>
+                    <div style="width: 20%;">
+                        <i class="far fa-meh" style="font-size: 1000%; color: gold; cursor: pointer; padding: 3px;" type="button" (click)="giveRating(3)" [ngClass]="{'selectedRating': EventRating === 3 }"></i>
+                    </div>
+                    <div style="width: 20%;">
+                        <i class="far fa-smile" style="font-size: 1000%; color: limegreen; cursor: pointer; padding: 3px;" type="button" (click)="giveRating(4)" [ngClass]="{'selectedRating': EventRating === 4 }"></i>
+                    </div>
+                    <div style="width: 20%;">
+                        <i class="far fa-grin-hearts" style="font-size: 1000%; color: green; cursor: pointer; padding: 3px;" type="button" (click)="giveRating(5)" [ngClass]="{'selectedRating': EventRating === 5 }"></i>
+                    </div>
+                </div>
+            </div>
+            <p *ngIf="ratingErrorMsg != ''" class="errorText">{{ ratingErrorMsg }}</p>
+        </mat-expansion-panel>
+    </mat-accordion>
+</div>
+
+<!-- Multiple Answer Questions -->
+<div *ngIf="hasMultiAnsQuestions && !SubmitSuccess">
+    <div fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="40px" class="events-top-div" *ngFor="let item of multiAnsQuestions">
+        <!-- <div class="col-xs-12"> -->
+        <mat-accordion>
+            <mat-expansion-panel [expanded]="true" [hideToggle]="true" [disabled]="true">
+                <mat-expansion-panel-header>
+                    <mat-panel-title>
+                        {{ item.questions }}
+                    </mat-panel-title>
+                </mat-expansion-panel-header>
+                <div class="matExpansionContent">
+                    <div class="row" fxLayoutGap="20px;" fxLayoutAlign="center center">
+                        <div style="text-align: center;margin: auto; font-size: 12px;">
+                            <button *ngFor="let ans of item.answers.answerArray; let i = index;" style="color: white;float: left; margin: 0px 5px;height: 65px;" [ngStyle]="{'background-color': item.answers.selectedAnsIndex == i ? 'rgb(92, 6, 140)' : 'grey' }" type="button" (click)="selectedAnswer(item, i)">
+                                    <label style="padding: 5px; font-weight: normal; min-width: 120px;max-width: 180px;">{{ ans.answerTextArea }}</label>
+                                </button>
+                        </div>
+                    </div>
+                </div>
+                <p *ngIf="item.ErrorMsg != ''" class="errorText">{{ item.ErrorMsg }}</p>
+            </mat-expansion-panel>
+        </mat-accordion>
+        <!-- </div> -->
+    </div>
+</div>
+
+<!-- Free Text Answer Questions -->
+<div *ngIf="hasFreeTextQuestions && !SubmitSuccess">
+    <div fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="40px" class="events-top-div" *ngFor="let item of freeTextQuestions">
+        <mat-accordion>
+            <mat-expansion-panel [expanded]="true" [hideToggle]="true" [disabled]="true">
+                <mat-expansion-panel-header>
+                    <mat-panel-title>
+                        {{ item.questions }}
+                    </mat-panel-title>
+                </mat-expansion-panel-header>
+                <div class="matExpansionContent">
+                    <div class="form-group">
+                        <textarea class="form-control" rows="5" style="max-width: inherit;" [(ngModel)]="item.answers.answerArray[0].answerTextArea"></textarea>
+                    </div>
+                </div>
+                <p *ngIf="item.ErrorMsg != ''" class="errorText">{{ item.ErrorMsg }}</p>
+            </mat-expansion-panel>
+        </mat-accordion>
+    </div>
+</div>
+
+<!-- Submit and Rest buttons -->
+<div style="display: flex; justify-content: center; align-items: center; margin: 1%;" *ngIf="!SubmitSuccess && hasEventParticipantLoaded">
+    <button type="button" class="btn btn-danger" (click)="Reset()" style="margin-right: 10px;"><i class="fas fa-undo" style="font-size: 115%;"></i> Reset</button>
+    <button type="button" class="btn btn-success" (click)="Submit()" style="margin-left: 10px;"><i class="fas fa-paper-plane" style="font-size: 115%;"></i> Submit</button>
+</div>
+
+<!-- Thanks Message -->
+<div fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="40px" class="events-top-div" *ngIf="SubmitSuccess">
+    <mat-accordion>
+        <mat-expansion-panel [expanded]="true" [hideToggle]="true">
+            <div class="matExpansionContent">
+                <div class="row" style="text-align: center;">
+                    <div style="width: 100%;">
+                        <h2 style="color: rgb(1, 58, 168);">Many Thanks for the Feedback.</h2><br/>
+                        <h4 style="color: limegreen;">Feedback like this helps us to constantly improve our outreach experience by knowing what we are doing right and what we can work on. So, We appreciate you taking time to send us this helpful response.<br/> Don't hesitate to reach
+                            out if you have any more questions, comments or concerns. <br/><br/>
+                        </h4>
+                        <h4>
+                            Cheers,<br/>
+                        </h4>
+                        <h4 style="color: limegreen;">Outreach Team</h4>
+                    </div>
+                </div>
+            </div>
+        </mat-expansion-panel>
+    </mat-accordion>
+</div>

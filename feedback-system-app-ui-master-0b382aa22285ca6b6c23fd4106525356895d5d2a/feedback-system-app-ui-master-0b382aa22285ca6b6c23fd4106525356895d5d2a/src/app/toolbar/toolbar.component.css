@@ -1,0 +1,27 @@
+.toolbar-tag {
+    background-color: rgb(1, 58, 168);
+}
+
+a:focus {
+    outline: none !important;
+    color: white !important;
+    text-decoration: none !important;
+}
+
+a:visited,
+a:link {
+    color: white !important;
+    text-decoration: none !important;
+}
+
+a:hover,
+a.active {
+    color: yellow !important;
+    text-decoration: none !important;
+}
+
+a:link:active,
+a:visited:active {
+    color: yellow !important;
+    text-decoration: none !important;
+}

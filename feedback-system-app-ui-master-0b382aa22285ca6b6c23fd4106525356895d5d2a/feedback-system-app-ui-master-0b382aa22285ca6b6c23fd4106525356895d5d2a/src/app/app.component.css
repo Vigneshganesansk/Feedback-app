@@ -1,0 +1,22 @@
+#mainArea {
+    padding: unset;
+    margin: unset;
+}
+
+.container-fluid {
+    padding: 0px !important;
+    margin: 0px !important;
+    margin-bottom: 0px !important;
+}
+
+.jumbotron,
+.jumbotron-fluid {
+    padding-top: 0px !important;
+    padding-bottom: 0px !important;
+    margin-bottom: 0px !important;
+}
+
+.row {
+    margin-right: 0px;
+    margin-left: 0px;
+}

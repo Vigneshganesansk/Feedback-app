@@ -1,0 +1,39 @@
+<div class="container-fluid">
+    <div class="row-fluid">
+        <div class="col-md-8 image_div">
+            <!-- Image Section-->
+            <img [src]="image_path" class="img-responsive" alt="Outreach Image" style="background-size: 100% 100%;padding:unset;margin:unset">
+        </div>
+        <div class="col-md-4  login_div">
+            <h2>Cognizant Outreach</h2>
+            <h6>Feedback management system</h6>
+            <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+                <div class="form-group">
+                    <label for="id"></label>
+                    <input type="text" placeholder="Employee ID" formControlName="id" class="form-control" [ngClass]="{ 'is-invalid': submitted && loginForm.controls['id'].errors }" />
+                    <div *ngIf="submitted && loginForm.controls['id'].errors" class="invalid-feedback">
+                        <div *ngIf="loginForm.controls['id'].errors.required">Employee ID is required</div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="password"></label>
+                    <input type="password" placeholder="Password" formControlName="password" class="form-control" [ngClass]="{ 'is-invalid': submitted && loginForm.controls['password'].errors }" />
+                    <div *ngIf="submitted && loginForm.controls['password'].errors" class="invalid-feedback">
+                        <div *ngIf="loginForm.controls['password'].errors.required">Password is required</div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <button class="btn btn-success" style="width: 100%">
+                        <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>
+                        SIGNME IN
+                    </button>
+                </div>
+            </form>
+            <p>Interested in Outreach? Click <a>here</a> to register for next event</p>
+            <footer>
+                Cognizant Outreach. All rights reserved.
+            </footer>
+        </div>
+
+    </div>
+</div>

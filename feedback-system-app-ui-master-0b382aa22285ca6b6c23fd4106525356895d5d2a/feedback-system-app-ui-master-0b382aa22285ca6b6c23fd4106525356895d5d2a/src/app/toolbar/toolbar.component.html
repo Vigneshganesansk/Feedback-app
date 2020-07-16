@@ -1,0 +1,47 @@
+<mat-toolbar color="primary" *ngIf="(isLoggedIn$ | async) && ((userRole$ | async) !== 4)" class="toolbar-tag">
+    <!-- <mat-toolbar color="primary" *ngIf="bool1 && (int1 !== 3)" class="toolbar-tag"> -->
+    <div fxShow="true" fxHide.gt-sm="true">
+        <button mat-icon-button (click)="sidenav.toggle()">
+          <mat-icon>menu</mat-icon>
+        </button>
+    </div>
+
+    <a mat-button class="companyName" routerLink="/">
+        <span><h1>Outreach FMS</h1></span>
+    </a>
+    <span class="example-spacer"></span>
+    <div fxShow="true" fxHide.lt-md="true" style="width: 100%;">
+        <a mat-button routerLink="/"><i class="fa fa-bar-chart"></i> Dashboard</a>
+        <a mat-button routerLink="/events"><i class="fa fa-tasks"></i> Events</a>
+        <a mat-button routerLink="/reports"><i class="fa fa-file-excel-o"></i> Reports</a>
+        <a mat-button [matMenuTriggerFor]="menu" *ngIf="(userRole$ | async) === 1"><i class="fa fa-gear"></i> Configuration</a>
+        <mat-menu #menu="matMenu">
+            <button routerLink="/configuration" mat-menu-item (click)=setPMOEdit()>Edit PMO</button>
+            <button routerLink="/configuration" mat-menu-item (click)=setQuestionEdit()>Edit Questions</button>
+        </mat-menu>
+        <a mat-button routerLink="/feedback" *ngIf="(userRole$ | async) === 1"><i class="far fa-angry"></i> Feedback</a>
+        <a mat-button routerLink="/upload"><i class="fas fa-cloud-upload-alt"></i> Upload</a>
+
+
+        <a mat-button [matMenuTriggerFor]="menu1" style="float: right;"><i class="fas fa-user"></i> {{ user.associateName }}</a>
+        <mat-menu #menu1="matMenu">
+            <button routerLink="/login" mat-menu-item (click)=logOut()><i class="fas fa-sign-out-alt"></i> Sign Out</button>
+        </mat-menu>
+    </div>
+</mat-toolbar>
+
+<mat-sidenav color="primary" #sidenav fxLayout="column" mode="over" opened="false" fxHide.gt-sm="true">
+    <div fxLayout="column">
+        <a mat-button routerLink="/"><i class="fa fa-bar-chart"></i> Dashboard</a>
+        <a mat-button routerLink="/events"><i class="fa fa-tasks"></i> Events</a>
+        <a mat-button routerLink="/reports"><i class="fa fa-file-excel-o"></i> Reports</a>
+        <a mat-button [matMenuTriggerFor]="menu" *ngIf="(userRole$ | async) === 1"><i class="fa fa-gear"></i> Configuration</a>
+        <mat-menu #menu="matMenu">
+            <button routerLink="/configuration" mat-menu-item (click)=setPMOEdit()>Edit PMO</button>
+            <button routerLink="/configuration" mat-menu-item (click)=setQuestionEdit()>Edit Questions</button>
+        </mat-menu>
+        <a mat-button routerLink="/feedback"><i class="far fa-angry"></i> Feedback</a>
+        <a mat-button routerLink="/upload"><i class="fas fa-cloud-upload-alt"></i> Upload</a>
+
+    </div>
+</mat-sidenav>

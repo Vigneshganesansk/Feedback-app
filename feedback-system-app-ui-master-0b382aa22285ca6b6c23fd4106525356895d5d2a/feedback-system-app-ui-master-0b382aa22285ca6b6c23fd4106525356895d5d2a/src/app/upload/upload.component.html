@@ -1,0 +1,27 @@
+<!-- <div fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="40px" class="events-top-div" *ngIf="(userRole$ | async) === 0"> -->
+<div fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="40px" class="events-top-div">
+    <mat-accordion>
+        <mat-expansion-panel [expanded]="true">
+            <div class="matExpansionContent">
+                <div class="row" style="text-align: center;">
+                    <div style="width: 100%;" fxLayoutAlign="center center">
+                        <div class="col-xs-3" fxLayoutAlign="center center">
+                            <h4> Upload File:</h4>
+                        </div>
+                        <div class="col-xs-9">
+                            <div style="width: 500px">
+                                <ngx-dropzone #drpzone [multiple]="false" [accept]="'.xlsx'" (change)="onSelect($event)">
+                                    <ngx-dropzone-label>Drop the file here</ngx-dropzone-label>
+                                    <ngx-dropzone-preview *ngFor="let f of file" [removable]="true" (removed)="onRemove(f)">
+                                        <ngx-dropzone-label>{{ f.name }}</ngx-dropzone-label>
+                                    </ngx-dropzone-preview>
+                                </ngx-dropzone>
+                                <button class="btn btn-success" (click)=upload()>Upload</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </mat-expansion-panel>
+    </mat-accordion>
+</div>

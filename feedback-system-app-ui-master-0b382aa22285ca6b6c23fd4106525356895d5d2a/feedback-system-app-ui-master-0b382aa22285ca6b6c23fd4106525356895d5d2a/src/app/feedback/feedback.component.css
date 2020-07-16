@@ -1,0 +1,256 @@
+/* mat accordion moving away from margin */
+
+mat-accordion {
+    margin: 0px 20px 0px 20px;
+    width: 100%;
+}
+
+
+/* margin top for mat expansion content */
+
+.matExpansionContent {
+    margin-top: 10px;
+}
+
+
+/* For table */
+
+ ::ng-deep #gridContainer {
+    height: 440px;
+}
+
+
+/* ::ng-deep .master-detail-caption {
+    padding: 0 0 5px 10px;
+    font-size: 14px;
+    font-weight: bold;
+  } */
+
+
+/* mat card margin and width alignment */
+
+mat-card {
+    color: white;
+    margin-top: 10px;
+    width: 300px;
+    box-sizing: content-box;
+    /* background-image: url("https://material.angular.io/assets/img/examples/shiba2.jpg"); */
+}
+
+
+/* mat-card-subtitle{
+    color: white;
+  } */
+
+
+/* Card email avatar */
+
+img {
+    max-width: 100%;
+}
+
+.email-icon {
+    font-size: 680% !important;
+    background: rgb(61, 141, 223) !important;
+    border-radius: 2px 0px 0px 2px !important;
+}
+
+.email-background {
+    background: rgb(194, 221, 248) !important;
+}
+
+.implement-background {
+    background: rgb(253, 225, 186) !important;
+}
+
+.implement-icon {
+    font-size: 680% !important;
+    background: rgb(250, 153, 28) !important;
+    /* padding: inherit !important; */
+    border-radius: 0px 2px 2px 0px !important;
+}
+
+.pad-inherit {
+    padding: inherit !important;
+}
+
+.email-text-color {
+    color: rgb(95, 122, 149) !important;
+    padding-top: 15px !important;
+}
+
+.implement-text-color {
+    color: rgb(170, 141, 99) !important;
+    padding-top: 15px !important;
+    text-align: right !important;
+}
+
+.mat-expansion-panel-header,
+.mat-expansion-panel-header:hover {
+    background-color: rgb(1, 58, 168) !important;
+}
+
+.mat-expansion-panel-header-title {
+    color: white !important;
+}
+
+.mat-card-content {
+    background-color: inherit !important;
+    padding: 0px !important;
+    margin-bottom: 0px !important;
+}
+
+.mat-card-title {
+    display: unset !important;
+}
+
+
+/* 577727 */
+
+.email-icon-column {
+    flex: 20% !important;
+    padding: 15px;
+    border-radius: 2px 0px 0px 2px !important;
+    text-align: center;
+    background: rgb(61, 141, 223) !important;
+}
+
+.imp-icon-column {
+    flex: 20% !important;
+    padding: 15px;
+    border-radius: 0px 2px 2px 0px !important;
+    text-align: center;
+    background: rgb(250, 153, 28) !important;
+}
+
+.email-content-column {
+    flex: 80% !important;
+    padding: 10px;
+}
+
+.imp-content-column {
+    flex: 80% !important;
+    padding: 10px;
+}
+
+.row {
+    display: flex;
+}
+
+.row:after {
+    content: "";
+    display: table;
+    clear: both;
+}
+
+.events-top-div {
+    margin-top: 1% !important;
+    margin-left: 1% !important;
+    margin-right: 1% !important;
+    margin-bottom: 0.5% !important;
+}
+
+.events-sec-dev {
+    margin-top: 1% !important;
+    margin-left: 1% !important;
+    margin-right: 1% !important;
+    margin-bottom: 0.5% !important;
+}
+
+.event-detail-div1 {
+    margin-top: 1% !important;
+    margin-left: 1% !important;
+    margin-right: 1% !important;
+    margin-bottom: 0.5% !important;
+}
+
+.event-detail-div11 {
+    margin-top: 1% !important;
+    margin-left: 1% !important;
+    margin-right: 1% !important;
+    margin-bottom: 0.5% !important;
+    width: 48% !important;
+}
+
+.float-left {
+    float: left !important;
+}
+
+.float-right {
+    float: right !important;
+}
+
+.event-detail-div21 {
+    margin-top: 1% !important;
+    margin-left: 1% !important;
+    margin-right: 1% !important;
+    margin-bottom: 0.5% !important;
+    width: 31.33% !important;
+}
+
+.text-center {
+    text-align: center !important;
+}
+
+.status-div {
+    background: lightgray !important;
+}
+
+.dx-datagrid-rowsview .dx-row .dx-master-detail-cell {
+    padding: 5px !important;
+}
+
+.width-25 {
+    width: 25% !important;
+}
+
+.icon-close {
+    background: red !important;
+    cursor: pointer !important;
+    color: white !important;
+    padding: 2px 4px !important;
+    border-radius: 10px !important;
+    font-size: 88% !important;
+    margin: 0px 2px !important;
+}
+
+.icon-minus {
+    background: orange !important;
+    cursor: pointer !important;
+    color: white !important;
+    padding: 2px 3px !important;
+    border-radius: 10px !important;
+    font-size: 88% !important;
+    margin: 0px 2px !important;
+}
+
+.icon-redo {
+    background: green !important;
+    cursor: pointer !important;
+    color: white !important;
+    font-size: 70% !important;
+    padding: 5px !important;
+    border-radius: 10px !important;
+    margin: 0px 2px !important;
+}
+
+.icon-expand {
+    background: white !important;
+    cursor: pointer !important;
+    color: gray !important;
+    font-size: 75% !important;
+    padding: 3px 4px !important;
+    border-radius: 10px !important;
+    margin: 0px 2px !important;
+}
+
+.selectedRating {
+    border: solid royalblue !important;
+    border-width: 1px !important;
+    padding: 2px !important;
+    border-radius: 6px !important;
+}
+
+.errorText {
+    color: red;
+}

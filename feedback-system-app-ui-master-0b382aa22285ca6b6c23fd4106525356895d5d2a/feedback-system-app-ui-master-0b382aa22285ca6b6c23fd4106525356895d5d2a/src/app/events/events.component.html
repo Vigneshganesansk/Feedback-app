@@ -1,0 +1,407 @@
+<div fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="40px" class="events-top-div" *ngIf="(userRole$ | async) === 1">
+    <mat-accordion>
+        <mat-expansion-panel [expanded]="ActionExpanded" [hideToggle]="true" [disabled]="true">
+            <mat-expansion-panel-header>
+                <mat-panel-title>
+                    <div style="width: 100%;">
+                        <div style="float: left;">
+                            Actions
+                        </div>
+                        <div style="float: right; vertical-align: middle;">
+                            <i class="fas fa-expand icon-expand" type="button" (click)="ToggleCard('actions', 1)"></i>
+                            <i class="fas fa-redo icon-redo"></i>
+                            <i class="fas fa-minus icon-minus" type="button" (click)="ToggleCard('actions', 2)"></i>
+                            <i class="fa fa-times icon-close" aria-hidden="true"></i>
+                        </div>
+                    </div>
+                </mat-panel-title>
+            </mat-expansion-panel-header>
+            <div class="matExpansionContent">
+                <div class="row" fxLayoutAlign="center center" fxLayoutGap="60px" [style.margin-top]="'12px'" [style.margin-left]="'10px'">
+                    <div class="col-md-5">
+                        <!-- Email Reminder Card Component -->
+                        <mat-card-content>
+                            <div class="row email-background">
+                                <div class="email-icon-column">
+                                    <i class="fa fa-envelope fa-4x"></i>
+                                </div>
+                                <div class="email-content-column email-text-color">
+                                    <mat-card-title>Email Reminder</mat-card-title>
+                                    <br>
+                                    <mat-card-subtitle class="email-text-color">
+                                        Sit back and relax while the app sends the emails
+                                        <button type="button" class="btn btn-default" (click)="SendMail()"><i class="fa fa-envelope"></i> Send Email</button>
+                                    </mat-card-subtitle>
+                                </div>
+                            </div>
+                        </mat-card-content>
+                    </div>
+                    <div class="col-md-5">
+                        <!-- Future Implementations -->
+                        <mat-card-content>
+                            <div class="row implement-background">
+                                <div class="imp-content-column implement-text-color">
+                                    <mat-card-title>Future Implementations</mat-card-title>
+                                    <br>
+                                    <mat-card-subtitle class="implement-text-color">This place holder can be used for adding any other action in future</mat-card-subtitle>
+                                </div>
+                                <div class="imp-icon-column">
+                                    <i class="fa fa-lightbulb-o  fa-4x"></i>
+                                </div>
+                            </div>
+                        </mat-card-content>
+                    </div>
+                </div>
+            </div>
+        </mat-expansion-panel>
+    </mat-accordion>
+
+</div>
+
+<!-- mat accordion (Expansion panel)-->
+<div fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="40px" *ngIf="!ShowEventDetail" class="events-sec-dev">
+    <mat-accordion>
+        <mat-expansion-panel [expanded]="EventsExpanded" [hideToggle]="true" [disabled]="true">
+            <mat-expansion-panel-header>
+                <mat-panel-title>
+                    <div style="width: 100%;">
+                        <div style="float: left;">
+                            EVENTS
+                        </div>
+                        <div style="float: right; vertical-align: middle;">
+                            <i class="fas fa-expand icon-expand" type="button" (click)="ToggleCard('events', 1)"></i>
+                            <i class="fas fa-redo icon-redo"></i>
+                            <i class="fas fa-minus icon-minus" type="button" (click)="ToggleCard('events', 2)"></i>
+                            <i class="fa fa-times icon-close" aria-hidden="true"></i>
+                        </div>
+                    </div>
+                </mat-panel-title>
+            </mat-expansion-panel-header>
+            <dx-data-grid id="gridContainer" [dataSource]="reportsData" keyExpr="EventID" [showBorders]="true" [wordWrapEnabled]="true" [scrolling]="{ mode: 'virtual'}" [masterDetail]="{ enabled: false, template: 'detail', autoExpandAll: true }" style="width: 100%; margin-top: 1%; margin-bottom: 1%;">
+
+                <!-- <dxo-filter-row [visible]="true" [applyFilter]="currentFilter"></dxo-filter-row> -->
+                <dxi-column type="selection" cellTemplate="selectionCellTemplate" headerCellTemplate="selectionHeaderCellTemplate" [width]="100">
+                </dxi-column>
+                <dxi-column dataField="EventID" [width]="150"></dxi-column>
+                <dxi-column dataField="Month" [width]="150"></dxi-column>
+                <dxi-column dataField="BaseLocation" [width]="150"></dxi-column>
+                <dxi-column dataField="CouncilName" [width]="180"></dxi-column>
+                <dxi-column dataField="BeneficiaryName" [width]="180"></dxi-column>
+
+                <div *dxTemplate="let event of 'detail'">
+                    <table class="table table-bordered table-hover " style="width: 50%; background: white;">
+                        <tbody>
+                            <tr>
+                                <td class="width-25 font-for-cell">Event Name</td>
+                                <td>{{ event.data.EventName }}</td>
+                            </tr>
+                            <tr>
+                                <td class="width-25 font-for-cell">Event Date</td>
+                                <td>{{ event.data.EventDate }}</td>
+                            </tr>
+                            <tr>
+                                <td class="width-25 font-for-cell">Business Unit</td>
+                                <td>{{ event.data.BusinessUnit }}</td>
+                            </tr>
+                            <tr>
+                                <td class="width-25 font-for-cell">Status</td>
+                                <td>{{ event.data.Status }}</td>
+                            </tr>
+                            <tr>
+                                <td class="width-25 font-for-cell">Venue Address</td>
+                                <td>{{ event.data.VenueAddress }}</td>
+                            </tr>
+                            <tr>
+                                <td class="width-25 font-for-cell">Total Volunteers</td>
+                                <td>{{ event.data.TotalVolunteers }}</td>
+                            </tr>
+                            <tr>
+                                <td class="width-25 font-for-cell">Total Volunteer Hours</td>
+                                <td>{{ event.data.TotalVolunteerHours }}</td>
+                            </tr>
+                            <tr>
+                                <td class="width-25 font-for-cell">Total Travel Hours</td>
+                                <td>{{ event.data.TotalTravelHours }}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div *dxTemplate="let cellInfo of 'selectionCellTemplate'">
+                    <button type="button" class="btn btn-primary" (click)="SwitchDiv(cellInfo.data)" style="height: 90%;"><i class="fa fa-eye"></i> view</button>
+                </div>
+
+                <div *dxTemplate="let headerInfo of 'selectionHeaderCellTemplate'" style="padding: 5px;">
+                    <p class="action-style">Action</p>
+                </div>
+            </dx-data-grid>
+        </mat-expansion-panel>
+    </mat-accordion>
+</div>
+
+<!-- Event Details Section -->
+<div *ngIf="ShowEventDetail" style="margin-left: 2%;margin-top: 1%;">
+    <button type="button" class="btn btn-primary" (click)="SwitchDiv(null)"><i class="fa fa-arrow-left" style="font-size: 115%"></i> Back to Events Page</button>
+</div>
+
+<!-- event and bene div -->
+<div fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="40px" *ngIf="ShowEventDetail" class="event-detail-div1">
+    <mat-accordion>
+        <mat-expansion-panel [expanded]="BenefExpanded" [hideToggle]="true" [disabled]="true">
+            <mat-expansion-panel-header>
+                <mat-panel-title>
+                    <div style="width: 100%;">
+                        <div style="float: left;">
+                            EVENT & BENEFECIARY DETAILS
+                        </div>
+                        <div style="float: right; vertical-align: middle;">
+                            <i class="fas fa-expand icon-expand" type="button" (click)="ToggleCard('beneficiary', 1)"></i>
+                            <i class="fas fa-redo icon-redo"></i>
+                            <i class="fas fa-minus icon-minus" type="button" (click)="ToggleCard('beneficiary', 2)"></i>
+                            <i class="fa fa-times icon-close" aria-hidden="true"></i>
+                        </div>
+                    </div>
+                </mat-panel-title>
+            </mat-expansion-panel-header>
+            <div fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="40px" class="event-detail-div11 float-left text-center">
+                <mat-accordion>
+                    <mat-expansion-panel [expanded]="true" [hideToggle]="true" [disabled]="true">
+                        <mat-expansion-panel-header>
+                            <mat-panel-title>
+                                <div style="width: 50%;" class="float-left">
+                                    ID : {{ SelectedEvent.EventID }}
+                                </div>
+                                <div style="width: 50%;" class="float-right">
+                                    Date: {{ SelectedEvent.EventDate }}
+                                </div>
+                            </mat-panel-title>
+                        </mat-expansion-panel-header>
+                        <h4>{{ SelectedEvent.EventName }}</h4>
+                        <p style="margin: 3.5%;">{{ SelectedEvent.EventDescription }}</p>
+                        <div style="width: 100%;margin: 3.5%;" class="Ff">
+                            <div style="width: 50%;" class="float-left">
+                                Status : {{ SelectedEvent.Status }}
+                            </div>
+                            <div style="width: 50%;" class="float-right">
+                                Category: {{ SelectedEvent.Category }}
+                            </div>
+                        </div>
+                    </mat-expansion-panel>
+                </mat-accordion>
+            </div>
+
+            <div fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="40px" class="event-detail-div11 float-right text-center">
+                <mat-accordion>
+                    <mat-expansion-panel [expanded]="true" [hideToggle]="true" [disabled]="true">
+                        <mat-expansion-panel-header>
+                            <mat-panel-title>
+                                <div style="width: 50%;" class="float-left">
+                                    Location : {{ SelectedEvent.BaseLocation }}
+                                </div>
+                                <div style="width: 50%;" class="float-right">
+                                    Council: {{ SelectedEvent.CouncilName }}
+                                </div>
+                            </mat-panel-title>
+                        </mat-expansion-panel-header>
+                        <h4>{{ SelectedEvent.BeneficiaryName }}</h4>
+                        <p style="margin: 3.5%;">{{ SelectedEvent.VenueAddress }}</p>
+                        <div style="width: 100%;margin: 3.5%;">
+                            <div style="width: 50%;" class="float-left">
+                                Feedbacks : {{ TotalFeedbacks }}
+                            </div>
+                            <div style="width: 50%;" class="float-right">
+                                Average Rating: {{ SelectedEvent.AverageRating }}
+                            </div>
+                        </div>
+                    </mat-expansion-panel>
+                </mat-accordion>
+            </div>
+
+        </mat-expansion-panel>
+    </mat-accordion>
+</div>
+
+<!-- 3 divs -->
+<div class="row event-detail-div1">
+    <div fxLayout="row" fxLayoutAlign="center" fxLayoutGap="40px" *ngIf="ShowEventDetail" class="event-detail-div21 float-left" style="align-items: unset !important;">
+        <mat-accordion>
+            <mat-expansion-panel [expanded]="PartExpanded" [hideToggle]="true" [disabled]="true">
+                <mat-expansion-panel-header>
+                    <mat-panel-title>
+                        <div style="width: 100%;">
+                            <div style="float: left;">
+                                PARTICIPATED
+                            </div>
+                            <div style="float: right; vertical-align: middle;">
+                                <i class="fas fa-expand icon-expand" type="button" (click)="ToggleCard('participated', 1)"></i>
+                                <i class="fas fa-redo icon-redo"></i>
+                                <i class="fas fa-minus icon-minus" type="button" (click)="ToggleCard('participated', 2)"></i>
+                                <i class="fa fa-times icon-close" aria-hidden="true"></i>
+                            </div>
+                        </div>
+                    </mat-panel-title>
+                </mat-expansion-panel-header>
+                <div *ngFor="let part of SelectedEvent.ParticipantList">
+                    <table class="table table-bordered table-hover" style="margin-top: 5%;border-color: rgb(140, 250,130);border-width: 2px;" *ngIf="part.isFeedbackSubmitted">
+                        <tbody>
+                            <tr>
+                                <td>Rating : {{ part.eventRating }}</td>
+                            </tr>
+                            <tr>
+                                <td>Likes : {{ part.likes }}</td>
+                            </tr>
+                            <tr>
+                                <td>Dislikes : {{ part.dislikes }}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <table class="table table-bordered table-hover" style="margin-top: 5%;border-color: rgb(140, 250,130);border-width: 2px;" *ngIf="AnyPartFbSubmitted">
+                    <tbody>
+                        <tr>
+                            <td>No Feedback submitted by Participants</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </mat-expansion-panel>
+        </mat-accordion>
+    </div>
+
+    <div fxLayout="row" fxLayoutAlign="center" fxLayoutGap="40px" *ngIf="ShowEventDetail" class="event-detail-div21 float-left" style="align-items: unset !important;;">
+        <mat-accordion>
+            <mat-expansion-panel [expanded]="NotPartExpanded" [hideToggle]="true" [disabled]="true">
+                <mat-expansion-panel-header>
+                    <mat-panel-title>
+                        <div style="width: 100%;">
+                            <div style="float: left;">
+                                NOT PARTICIPATED
+                            </div>
+                            <div style="float: right; vertical-align: middle;">
+                                <i class="fas fa-expand icon-expand" type="button" (click)="ToggleCard('notparticipated', 1)"></i>
+                                <i class="fas fa-redo icon-redo"></i>
+                                <i class="fas fa-minus icon-minus" type="button" (click)="ToggleCard('notparticipated', 2)"></i>
+                                <i class="fa fa-times icon-close" aria-hidden="true"></i>
+                            </div>
+                        </div>
+                    </mat-panel-title>
+                </mat-expansion-panel-header>
+                <div *ngFor="let part of SelectedEvent.NotParticipatedList">
+                    <table class="table table-bordered table-hover" style="margin-top: 5%;border-color: rgb(140, 250,130);border-width: 2px;" *ngIf="part.isFeedbackSubmitted">
+                        <tbody>
+                            <tr>
+                                <td>{{ part.likes }}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <table class="table table-bordered table-hover" style="margin-top: 5%;border-color: rgb(140, 250,130);border-width: 2px;" *ngIf="AnyNotPartFbSubmitted">
+                    <tbody>
+                        <tr>
+                            <td>No Feedback submitted by Not-Participated members</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </mat-expansion-panel>
+        </mat-accordion>
+    </div>
+
+    <div fxLayout="row" fxLayoutAlign="center" fxLayoutGap="40px" *ngIf="ShowEventDetail" class="event-detail-div21 float-right" style="align-items: unset !important;;">
+        <mat-accordion>
+            <mat-expansion-panel [expanded]="UnregExpanded" [hideToggle]="true" [disabled]="true">
+                <mat-expansion-panel-header>
+                    <mat-panel-title>
+                        <div style="width: 100%;">
+                            <div style="float: left;">
+                                UNREGISTERED
+                            </div>
+                            <div style="float: right; vertical-align: middle;">
+                                <i class="fas fa-expand icon-expand" type="button" (click)="ToggleCard('unregister', 1)"></i>
+                                <i class="fas fa-redo icon-redo"></i>
+                                <i class="fas fa-minus icon-minus" type="button" (click)="ToggleCard('unregister', 2)"></i>
+                                <i class="fa fa-times icon-close" aria-hidden="true"></i>
+                            </div>
+                        </div>
+                    </mat-panel-title>
+                </mat-expansion-panel-header>
+                <div *ngFor="let part of SelectedEvent.UnregistedPartyList">
+                    <table class="table table-bordered table-hover" style="margin-top: 5%;border-color: rgb(140, 250,130);border-width: 2px;" *ngIf="part.isFeedbackSubmitted">
+                        <tbody>
+                            <tr>
+                                <td>{{ part.likes }}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <table class="table table-bordered table-hover" style="margin-top: 5%;border-color: rgb(140, 250,130);border-width: 2px;" *ngIf="AnyUnregFbSubmitted">
+                    <tbody>
+                        <tr>
+                            <td>No Feedback submitted by Unregistered members</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </mat-expansion-panel>
+        </mat-accordion>
+    </div>
+</div>
+
+
+<!-- 2 divs -->
+<div class="row event-detail-div1">
+    <div fxLayout="row" fxLayoutAlign="center" fxLayoutGap="40px" *ngIf="ShowEventDetail" class="event-detail-div11 float-left">
+        <mat-accordion>
+            <mat-expansion-panel [expanded]="StatExpanded" [hideToggle]="true" [disabled]="true">
+                <mat-expansion-panel-header>
+                    <mat-panel-title>
+                        <div style="width: 100%;">
+                            <div style="float: left;">
+                                STATISTICS
+                            </div>
+                            <div style="float: right; vertical-align: middle;">
+                                <i class="fas fa-expand icon-expand" type="button" (click)="ToggleCard('statistics', 1)"></i>
+                                <i class="fas fa-redo icon-redo"></i>
+                                <i class="fas fa-minus icon-minus" type="button" (click)="ToggleCard('statistics', 2)"></i>
+                                <i class="fa fa-times icon-close" aria-hidden="true"></i>
+                            </div>
+                        </div>
+                    </mat-panel-title>
+                </mat-expansion-panel-header>
+                <dx-data-grid [dataSource]="[SelectedEvent]" keyExpr="EventID" [showBorders]="true" [wordWrapEnabled]="true" [columnAutoWidth]="true" style="width: 100%; margin-top: 1%; margin-bottom: 1%;">
+                    <dxi-column dataField="AverageRating"></dxi-column>
+                    <dxi-column dataField="TotalVolunteers"></dxi-column>
+                    <dxi-column dataField="TotalVolunteerHours"></dxi-column>
+                    <dxi-column dataField="OverallVolunteeringHours"></dxi-column>
+                    <dxi-column dataField="TotalTravelHours"></dxi-column>
+                    <dxi-column dataField="LivesImpacted"></dxi-column>
+                </dx-data-grid>
+            </mat-expansion-panel>
+        </mat-accordion>
+    </div>
+
+    <div fxLayout="row" fxLayoutAlign="center" fxLayoutGap="40px" *ngIf="ShowEventDetail" class="event-detail-div11 float-right">
+        <mat-accordion>
+            <mat-expansion-panel [expanded]="POCExpanded" [hideToggle]="true" [disabled]="true">
+                <mat-expansion-panel-header>
+                    <mat-panel-title>
+                        <div style="width: 100%;">
+                            <div style="float: left;">
+                                POC DETAILS
+                            </div>
+                            <div style="float: right; vertical-align: middle;">
+                                <i class="fas fa-expand icon-expand" type="button" (click)="ToggleCard('poc', 1)"></i>
+                                <i class="fas fa-redo icon-redo"></i>
+                                <i class="fas fa-minus icon-minus" type="button" (click)="ToggleCard('poc', 2)"></i>
+                                <i class="fa fa-times icon-close" aria-hidden="true"></i>
+                            </div>
+                        </div>
+                    </mat-panel-title>
+                </mat-expansion-panel-header>
+                <dx-data-grid [dataSource]="SelectedEvent.PocList" keyExpr="SNo" [showBorders]="true" [wordWrapEnabled]="true" [columnAutoWidth]="true" style="width: 100%; margin-top: 1%; margin-bottom: 1%;">
+                    <dxi-column dataField="SNo"></dxi-column>
+                    <dxi-column dataField="POCID"></dxi-column>
+                    <dxi-column dataField="POCName"></dxi-column>
+                    <dxi-column dataField="POCContact"></dxi-column>
+                </dx-data-grid>
+            </mat-expansion-panel>
+        </mat-accordion>
+    </div>
+</div>

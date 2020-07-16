@@ -1,0 +1,25 @@
+<!-- <div class="container" fxLayout="row" fxLayoutWrap fxLayoutGap="0.5%" fxLayoutAlign="center">
+  <div fxFlex="25%">
+      <mat-card *ngFor="let section1 of sections" [style.backgroundColor]="section1.backgroundColor" >
+          <mat-card-header>
+            <mat-card-title>{{section1.title}}</mat-card-title>
+            <mat-card-subtitle><h2>{{section1.subtitle}}</h2></mat-card-subtitle>
+          </mat-card-header>
+          <mat-card-content>
+              <button class="button" mat-button><span>View Details</span></button>
+          </mat-card-content>
+        </mat-card> 
+  </div>
+</div> -->
+<div fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="40px" [style.margin-top]="'12px'" [style.margin-left]="'10px'">
+    <mat-card *ngFor="let section1 of sections" [style.backgroundColor]="section1.backgroundColor">
+        <mat-card-header>
+            <mat-card-title>{{section1.title}}</mat-card-title>
+            <mat-card-subtitle>{{section1.subtitle}}</mat-card-subtitle>
+        </mat-card-header>
+        <mat-card-content>
+            <button class="button" mat-button><span>View Details</span></button>
+        </mat-card-content>
+    </mat-card>
+</div>
+<hr>

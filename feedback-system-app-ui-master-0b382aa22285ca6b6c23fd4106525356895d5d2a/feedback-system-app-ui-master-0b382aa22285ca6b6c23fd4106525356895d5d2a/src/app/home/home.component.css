@@ -1,0 +1,74 @@
+/* mat card margin and width alignment */
+mat-card{
+  color: white;
+  margin-top: 10px;
+  width: 300px;
+  box-sizing: content-box;
+  /* background-image: url("https://material.angular.io/assets/img/examples/shiba2.jpg"); */
+}
+mat-card-subtitle{
+  color: white;
+}
+
+
+
+/* mat-card padding and background-color for content */
+::ng-deep .mat-card-header{
+  padding:5px !important;
+}
+
+::ng-deep .mat-card{
+  padding:0 !important;
+}
+
+.mat-card-content{
+  background-color:rgb(64, 65, 67) !important;
+  padding:5px !important;
+}
+
+
+/* Button animation */
+.button {
+  width: 100%;
+  border: none;
+  text-align: right;
+  padding: 5px;
+  transition: all 0.5s;
+  cursor: pointer;
+}
+
+.button span {
+  cursor: pointer;
+  display: inline-block;
+  position: relative;
+  transition: 0.5s;
+}
+
+.button span:after {
+  content: '\00bb';
+  position: absolute;
+  opacity: 0;
+  top: 0;
+  right: -10px;
+  transition: 0.5s;
+}
+
+.button:hover span {
+  padding-right: 25px;
+}
+
+.button:hover span:after {
+  opacity: 1;
+  right: 0;
+}
+
+/* Hr to seperate content and footer */
+hr { 
+  display: block;
+  margin-top: 7em;
+  margin-bottom: 0.5em;
+  margin-left: auto;
+  margin-right: auto;
+  border-style: inset;
+  border-width: 1px;
+}
